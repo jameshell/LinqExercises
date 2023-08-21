@@ -7,8 +7,10 @@ LinqQueries queries = new();
 // PrintValues(queries.AllCollection());
 
 // Filter By Date Exercise
-PrintValues(queries.BooksFilteredByDateYearEx( before: new DateTime(2010, 11, 1)));
+// PrintValues(queries.BooksFilteredByDateYearExp( before: new DateTime(2010, 11, 1)));
 
+// Filter by amount of pages and title exercise
+PrintValues(queries.BooksFilteredByPages(416, "Android"));
 void PrintValues(IEnumerable<Book> bookList)
 {
     var books = bookList.ToList();

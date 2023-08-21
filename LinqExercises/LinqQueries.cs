@@ -18,7 +18,7 @@ public class LinqQueries
         }
     }
     
-    // Extension Approach
+    // Method Extension Approach
     public IEnumerable<Book> BooksFilteredByDateYear(DateTime? after = null, DateTime? before = null)
     {
         if (after == null && before == null) throw new ArgumentNullException(nameof(BooksFilteredByDateYear));
@@ -40,7 +40,7 @@ public class LinqQueries
     }
     
     // Query Expression approach
-    public IEnumerable<Book> BooksFilteredByDateYearEx(DateTime? after = null, DateTime? before = null)
+    public IEnumerable<Book> BooksFilteredByDateYearExp(DateTime? after = null, DateTime? before = null)
     {
         if (after == null && before == null) throw new ArgumentNullException(nameof(BooksFilteredByDateYear));
         IEnumerable<Book> filteredBooks = new List<Book>();
@@ -65,6 +65,54 @@ public class LinqQueries
         return filteredBooks;
     }
 
+    // Method Extension Approach
+    public IEnumerable<Book> BooksFilteredByPages(int? pagesCount = null, string? title = null)
+    {
+        if (pagesCount == null && title == null) throw new ArgumentNullException(nameof(BooksFilteredByDateYear));
+        IEnumerable<Book> filteredBooks = new List<Book>();
+        if (pagesCount != null && title != null)
+        {
+            filteredBooks = _booksCollection
+                .Where(b => b.PageCount >= pagesCount)
+                .Where(b => b.title != null && b.title.Contains(title));
+        }
+        else if(pagesCount != null)
+        {
+            filteredBooks = _booksCollection.Where(b => b.PageCount >= pagesCount);
+        } else if (title != null)
+        {
+            filteredBooks = _booksCollection.Where(b => b.title != null && b.title.Contains(title));
+        }
+
+        return filteredBooks;
+    }
+    
+    // Query Expression Approach
+    public IEnumerable<Book> BooksFilteredByPagesExp(int? pagesCount = null, string? title = null)
+    {
+        if (pagesCount == null && title == null) throw new ArgumentNullException(nameof(BooksFilteredByDateYear));
+        IEnumerable<Book> filteredBooks = new List<Book>();
+        if (pagesCount != null && title != null)
+        {
+            filteredBooks = from l in _booksCollection
+                where l.PageCount >= pagesCount && l.title != null && l.title.Contains(title)
+                select l;
+        }
+        else if(pagesCount != null)
+        {
+            filteredBooks = from l in _booksCollection where l.PageCount >= pagesCount
+                select l;
+        } else if (title != null)
+        {
+            filteredBooks = from l in _booksCollection
+                where l.title != null && l.title.Contains(title)
+                select l;
+        }
+
+        return filteredBooks;
+    }
+    
+    
     public IEnumerable<Book> AllCollection()
     {
         return _booksCollection;
