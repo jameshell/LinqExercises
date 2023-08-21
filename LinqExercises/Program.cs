@@ -10,7 +10,18 @@ LinqQueries queries = new();
 // PrintValues(queries.BooksFilteredByDateYearExp( before: new DateTime(2010, 11, 1)));
 
 // Filter by amount of pages and title exercise
-PrintValues(queries.BooksFilteredByPages(416, "Android"));
+// PrintValues(queries.BooksFilteredByPages(416, "Android"));
+
+
+// Filter by Status - Check if all boos have a status
+// Console.WriteLine(queries.BooksFilteredByStatus());
+
+// Filter by Year of publish - Check if at least 1 book was publish in said year.
+// Console.WriteLine(queries.BooksFilteredByDatePublished(new DateTime(2011, 01, 22)));
+
+// Filter By Categories
+PrintValues(queries.BooksFilteredByCategory("Python"));
+
 void PrintValues(IEnumerable<Book> bookList)
 {
     var books = bookList.ToList();

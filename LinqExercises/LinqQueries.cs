@@ -112,6 +112,23 @@ public class LinqQueries
         return filteredBooks;
     }
     
+    // Method Extension Approach
+    public bool BooksFilteredByStatus()
+    {
+        return _booksCollection.All(b => !string.IsNullOrWhiteSpace(b.Status));
+    }
+    
+    // Method Extension Approach
+    public bool BooksFilteredByDatePublished(DateTime date)
+    {
+        return _booksCollection.Any(b => b.PublishedDate.Year == date.Year);
+    }
+    
+    // Method Extension Approach
+    public IEnumerable<Book> BooksFilteredByCategory(string category)
+    {
+        return _booksCollection.Where(b => b.Categories != null && b.Categories.Contains(category));
+    }
     
     public IEnumerable<Book> AllCollection()
     {
