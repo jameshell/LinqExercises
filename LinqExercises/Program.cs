@@ -20,7 +20,13 @@ LinqQueries queries = new();
 // Console.WriteLine(queries.BooksFilteredByDatePublished(new DateTime(2011, 01, 22)));
 
 // Filter By Categories
-PrintValues(queries.BooksFilteredByCategory("Python"));
+// PrintValues(queries.BooksFilteredByCategory("Python"));
+
+// Filter by Categories and Order Alphabetically
+// PrintValues(queries.BooksFilteredByCategoryOrderedByName("Java"));
+
+// Filter by number of pages and in descending order.
+PrintValues(queries.BooksFilteredByPagesInDescendingOrder(450));
 
 void PrintValues(IEnumerable<Book> bookList)
 {

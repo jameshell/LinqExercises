@@ -1,4 +1,5 @@
-﻿using System.Runtime.InteropServices;
+﻿using System.Collections;
+using System.Runtime.InteropServices;
 using System.Text.Json;
 
 namespace LinqExercises;
@@ -128,6 +129,29 @@ public class LinqQueries
     public IEnumerable<Book> BooksFilteredByCategory(string category)
     {
         return _booksCollection.Where(b => b.Categories != null && b.Categories.Contains(category));
+    }
+    
+    // Method Extension Approach
+    public IEnumerable<Book> BooksFilteredByCategoryOrderedByName(string category)
+    {
+        return _booksCollection
+            .Where(b => b.Categories != null && b.Categories.Contains(category))
+            .OrderBy(b => b.title);
+    }
+    
+    // Method Extension Approach
+    public IEnumerable<Book> BooksFilteredByPagesInDescendingOrder(int pages)
+    {
+        return BooksFilteredByPages(pages).OrderByDescending(b => b.PageCount);
+    }
+    
+    // Method Extension Approach
+    public IEnumerable<Book> TopXBooksFilteredByDateAndCategory(int total, string category)
+    {
+        return _booksCollection
+            .Where(b => b.Categories != null && b.Categories.Contains(category))
+            .OrderByDescending(b => b.PublishedDate)
+            .Take(total);
     }
     
     public IEnumerable<Book> AllCollection()
